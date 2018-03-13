@@ -37,6 +37,7 @@ App({
   globalData: {
     userInfo: null,
     openId:null,
-    userToken:null
+    userToken:null,
+    socketOpen:false
   }
 })

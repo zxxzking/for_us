@@ -1,5 +1,7 @@
 // pages/info/info.js
 const app = getApp()
+
+
 Page({
 
   /**
@@ -7,13 +9,17 @@ Page({
    */
   data: {
     userInfo:{},
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    onlineNum:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo
@@ -31,19 +37,7 @@ Page({
       })      
     }
 
-    wx.connectSocket({
-      url: 'ws://localhost:9093/zxxz-socket'
-    })
-
-
-    wx.onSocketOpen(function (res) {
-      console.log('WebSocket连接已打开！')
-      
-
     
-
-      // wx.closeSocket();
-    })
 
 
 
@@ -77,13 +71,43 @@ Page({
                 },
                 success: function (res) {
                   app.globalData.userToken = res.data.data
-
+                  connect();
+                  
                 }
               })
             }
           })
         }
       })
+    }
+
+
+    function connect(){
+      wx.connectSocket({
+        url: 'ws://localhost:9093/zxxz-socket'
+      })
+
+      // 监听socket打开
+      wx.onSocketOpen(function (res) {
+        app.globalData.socketOpen = true;
+        console.log('WebSocket连接已打开！')
+
+        if (app.globalData.socketOpen) {
+          wx.sendSocketMessage({
+            data: [app.globalData.userToken]
+          })
+        } 
+
+      })
+
+      // 监听接收到服务器消息
+      wx.onSocketMessage(function (res) {
+        console.log('收到服务器内容：' + res.data)
+        that.setData({
+          onlineNum:res.data
+        })
+      })
+
     }
   },
 
@@ -98,7 +122,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    
   },
 
   /**
@@ -114,25 +138,23 @@ Page({
   onUnload: function () {
   
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
   
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
   
+  },
+
+  join:function(){
+      wx.getLocation({
+        success: function(res) {
+
+        },
+      })
+
+
+
   }
 })

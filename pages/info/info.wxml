@@ -1,3 +1,9 @@
 <view class="avatar">
     <image src='{{userInfo.avatarUrl}}' class="userinfo-avatar"></image>        
 </view>
+
+
+<view>
+<button type = 'primary' bindtap='join'>加入</button>
+<text>当前有{{onlineNum}}人在线</text>
+</view>
