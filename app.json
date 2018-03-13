@@ -1,0 +1,15 @@
+{
+  "pages": [
+        "pages/info/info",
+    "pages/index/index",
+
+    "pages/logs/logs",
+    "pages/socket/socket"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Chicken Dinner",
+    "navigationBarTextStyle": "black"
+  }
+}

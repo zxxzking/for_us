@@ -1,0 +1,4 @@
+<view>
+<button type = 'primary' bindtap='connect'>连接</button>
+<button type = 'primary' bindtap='break'>断开</button>
+</view>

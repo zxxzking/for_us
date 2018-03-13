@@ -1,0 +1,13 @@
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.avatar{
+  padding: 7%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
