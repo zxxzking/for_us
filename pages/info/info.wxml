@@ -5,5 +5,7 @@
 
 <view>
 <button type = 'primary' bindtap='join'>加入</button>
-<text>当前有{{onlineNum}}人在线</text>
+<button type='warn' bindtap='leave'>离开</button>
+<text wx:if="{{!isShow}}">当前在线人数{{onlineNum}}</text>
+<text wx:if="{{isShow}}">您已离线</text>
 </view>
